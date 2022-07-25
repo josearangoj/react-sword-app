@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
 import { useInterval } from "../hooks/useInterval";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const BattlegroundScreen = ({
   isLoggedIn,
@@ -9,6 +10,7 @@ export const BattlegroundScreen = ({
   setWinner,
   winner,
 }) => {
+  const battleCharacters = useSelector((store: any) => store.characters.battleCharacters);
   const [fighterOne, fighterTwo] = battleCharacters;
   const [firstAttacks, setFirstAttacks] = useState(false);
   const [secondAttacks, setSecondAttacks] = useState(false);
