@@ -14,7 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBattleCharacters } from "../../slices/charactersSlice";
 
 export const CharacterSelection = () => {
-  const characters = useSelector((state: any) => state.characters.characterList);
+  const characters = useSelector(
+    (state: any) => state.characters.characterList
+  );
   //By using useDispatch we can dispatch actions to the store
   const dispatch = useDispatch();
    
@@ -38,10 +40,12 @@ export const CharacterSelection = () => {
       return;
     }
     setIsAlertVisible(false);
-    dispatch(setBattleCharacters(
-      characters.filter((character) => heroesSelected.includes(character.name))
-    ));
-    navigate("/battleground")
+    const selectedCharacters = characters.filter((character) =>
+      heroesSelected.includes(character.name)
+    );
+    //Selected characters in our case is action.payload
+    dispatch(setBattleCharacters(selectedCharacters));
+    navigate("/battleground");
   };
 
   const alert = (
