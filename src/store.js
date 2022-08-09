@@ -6,8 +6,12 @@ import charactersReducer from './slices/charactersSlice'
 //that we don't share and that is managed by component itself, we can use simple useState
 //1. we need to create the store
 //2. We need to provide redux store to React
-export default configureStore({
+export const store = configureStore({
   reducer: {
-    characters: charactersReducer
+    characters: charactersReducer,
+    login: loginReducer,
   },
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
