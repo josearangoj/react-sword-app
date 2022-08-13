@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/redux";
-import { addCharacter, Character } from "../slices/charactersSlice";
+import { clear } from "@testing-library/user-event/dist/clear";
+import { addCharacter, Character, setCharacterToUpdate, updateCharacter } from "../slices/charactersSlice";
 
 export const AddCharacterScreen = () => {
   const character = useSelector(
@@ -44,15 +45,46 @@ export const AddCharacterScreen = () => {
     }
     setIsAlertVisible(false);
     const newCharacter = {
-       name,
-       damagePerHit: parseInt(damagePerHit),
+      name,
+      damagePerHit: parseInt(damagePerHit),
       health: parseInt(health),
       fraction,
       weapon,
     };
-     dispatch(addCharacter(newCharacter as Character));
-     navigate("/characters");
+    dispatch(addCharacter(newCharacter as Character));
+    navigate("/characters");
   };
+
+  const handleCharacterToUpdate = () => {
+    if (!validateValues) {
+      return;
+    }
+    setIsAlertVisible(false);
+    const characterToUpdate = {
+      name,
+    };
+    dispatch(updateCharacter(characterToUpdate as Character));
+    navigate("/manageCharacters");
+  };
+
+  const handleCharacterUpdate = () => {
+    name, 
+
+
+  setIsAlertVisible(false);
+  const newCharacter = {
+    id: character.id,
+    name,
+    damagePerHit: parseInt(damagePerHit),
+    health: parseInt(health),
+    fraction,
+    weapon,
+  };
+  };
+  dispatch(updateCharacter(characterToUpdate as Character));
+  dispatch(updateCharacter(newCharacter as Character));
+  navigate("/characters");
+};
 
   const alert = (
     <Alert status="error">
@@ -81,7 +113,10 @@ export const AddCharacterScreen = () => {
         placeholder="Please enter a character weapon"
       />
       <Button onClick={handleCharacterAddition}>
-        {character ? "Update Character" : "Add Character"}
+        {character ? "Add Character" : "Update Character"}
+      </Button>
+      <Button onClick={character ? handleCharacterUpdate : handleCharacterAddition}>
+        {character ? "Uptade Character" : "Add Character"}
       </Button>
       {isAlertVisible && alert}
     </Stack>

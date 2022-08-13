@@ -50,6 +50,19 @@ export const addCharacter = createAsyncThunk(
     return response.data;
   }
 );
+
+// new functionality
+export const updateCharacter = createAsyncThunk(
+  "characters/updateCharacter",
+  async (character: Character) => {
+    const response = await axios.put(
+      "http://localhost:8080/characters/" + character.id,
+      character
+    );
+    return response.data;
+  }
+);
+
 //Let me descrive redux data flow:
 //1. We click on a button that triggers an action
 //2. The action is dispatched to the store (we need to provide type and payload)
